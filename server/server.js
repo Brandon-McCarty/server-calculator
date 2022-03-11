@@ -13,21 +13,27 @@ const PORT = 5000;
 app.use(express.static('server/public'));
 
 //body parser config
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-app.post('/calculation', function(req, res) {
+app.post('/calculation', function (req, res) {
     console.log('POST /calculation', req.body);
-    history.push(req.body);
+    // run calculation of request
     calculator(req.body);
+    //set result key equal to the result of the calculation
+    req.body.result = result;
+    // push all needed equation information into history array
+    history.push(req.body);
+    //send response status
     res.sendStatus(201);
 })
 
-app.get('/calculation', function(req, res) {
+app.get('/calculation', function (req, res) {
     console.log('GET /calculation');
+    // send result of latest calculation
     res.send(`${result}`);
 })
 
-function calculator (calculation) {
+function calculator(calculation) {
     // run appropriate calculation
     if (calculation.operator == '+') {
         result = Number(calculation.firstNumber) + Number(calculation.secondNumber);
@@ -38,11 +44,11 @@ function calculator (calculation) {
     } else if (calculation.operator == '*') {
         result = Number(calculation.firstNumber) * Number(calculation.secondNumber)
     }
-}
+};
 
 
 
 //start server
-app.listen(PORT, function() {
-    console.log('Server running on port', PORT);    
+app.listen(PORT, function () {
+    console.log('Server running on port', PORT);
 })
