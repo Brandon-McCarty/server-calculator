@@ -41,13 +41,13 @@ app.post('/calculation', function (req, res) {
     //display updated object with result
     console.log(req.body);
     
-})
+});
 
 app.get('/calculation', function (req, res) {
     console.log('GET /calculation');
     // send result of latest calculation
     res.send(`${result}`);
-})
+});
 
 app.post('/history', function(req, res) {
     console.log('POST /history');
