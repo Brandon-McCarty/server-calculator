@@ -40,6 +40,7 @@ app.post('/calculation', function (req, res) {
     res.sendStatus(201);
     //display updated object with result
     console.log(req.body);
+    console.log(history);
     
 });
 

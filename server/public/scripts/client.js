@@ -8,6 +8,7 @@ function handleReady() {
     console.log('JQuery Loaded');
     $('.operator').on('click', handleOperator);
     $('#submit').on('click', handleSubmit)
+    $('#submit').on('click', getHistory)
 }
 
 function getCalculation() {
@@ -16,14 +17,14 @@ function getCalculation() {
     $.ajax({
         url: '/calculation',
         method: 'GET'
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response);
         renderResults(response)
-    }).catch(function(error) {
+    }).catch(function (error) {
         console.log(error);
         alert('ERROR IN GET')
     })
-    
+
 };
 
 function handleOperator() {
@@ -44,7 +45,7 @@ function handleSubmit() {
     console.log('Submitting calculation....');
 
 
-    
+
     $.ajax({
         url: '/calculation',
         method: 'POST',
@@ -54,7 +55,7 @@ function handleSubmit() {
             operator: `${operator}`,
             result: 0
         }
-    }).then(function(response) {
+    }).then(function (response) {
         console.log(response);
 
         getCalculation();
@@ -63,8 +64,47 @@ function handleSubmit() {
     })
 }; // end handleSubmit
 
+function handleHistory() {
+    console.log('Getting history...');
+
+    $.ajax({
+        url: '/history',
+        method: 'POST',
+        data: {
+            showHistory: 'yes'
+        }
+    }).then(function (response) {
+        console.log(response);
+        getHistory();
+    })
+
+}; // end handleHistory
+
+function getHistory() {
+    console.log('Getting history');
+
+    $.ajax({
+        url: '/history',
+        method: 'GET'
+    }).then(function (response) {
+        console.log(response);
+        //clear history to not double-up
+        $('#history').empty();
+        // loop history array and append all history to DOM
+        for (calculation of response) {
+            $('#history').append(`<li>${calculation.firstNumber} ${calculation.operator} 
+            ${calculation.secondNumber} = ${calculation.result}</li>`)
+        }
+    }).catch(function (error) {
+        console.log(error);
+        alert('ERROR IN HISTORY GET')
+    })
+
+}; // end getHistory
+
 function renderResults(results) {
     console.log(results);
     //show results on DOM
-    $('#answer').append(`<li>${results}</li>`)
-}
+    $('#answer').empty();
+    $('#answer').append(`<li>${results}</li>`);
+}// end renderResults
