@@ -7,9 +7,10 @@ let operator;
 function handleReady() {
     console.log('JQuery Loaded');
     $('.operator').on('click', handleOperator);
-    $('#submit').on('click', handleSubmit)
-    $('#submit').on('click', getHistory)
-}
+    $('#submit').on('click', handleSubmit);
+    $('#submit').on('click', getHistory);
+    $('#clear').on('click', handleClear);
+}; // end handleReady
 
 function getCalculation() {
     console.log('Getting calculation');
@@ -25,7 +26,11 @@ function getCalculation() {
         alert('ERROR IN GET')
     })
 
-};
+};// end getCalculation
+
+function handleClear() {
+    $('input').val('');
+}; // end handleClear
 
 function handleOperator() {
     console.log($(this).data().operator);
@@ -107,4 +112,4 @@ function renderResults(results) {
     //show results on DOM
     $('#answer').empty();
     $('#answer').append(`<li>${results}</li>`);
-}// end renderResults
+};// end renderResults

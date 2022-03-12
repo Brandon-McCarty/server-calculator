@@ -26,7 +26,7 @@ function calculator(calculation) {
     } else if (calculation.operator == '*') {
         result = Number(calculation.firstNumber) * Number(calculation.secondNumber)
     }
-};
+}; // end calculator
 
 app.post('/calculation', function (req, res) {
     console.log('POST /calculation', req.body);
@@ -41,30 +41,30 @@ app.post('/calculation', function (req, res) {
     //display updated object with result
     console.log(req.body);
     console.log(history);
-    
-});
+
+}); // end post calculation
 
 app.get('/calculation', function (req, res) {
     console.log('GET /calculation');
     // send result of latest calculation
     res.send(`${result}`);
-});
+}); // end get calculation
 
-app.post('/history', function(req, res) {
+app.post('/history', function (req, res) {
     console.log('POST /history');
     if (req.body.showHistory === 'yes') {
         res.sendStatus(200);
     } else {
         res.sendStatus(401)
     }
-    
-});
 
-app.get('/history', function(req, res) {
+}); // end post history
+
+app.get('/history', function (req, res) {
     console.log('GET /history');
     //send history to client
-    res.send(history)    
-});
+    res.send(history)
+}); // end get history
 
 
 
