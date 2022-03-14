@@ -10,6 +10,7 @@ function handleReady() {
     $('#submit').on('click', handleSubmit);
     $('#submit').on('click', getHistory);
     $('#clear').on('click', handleClear);
+    getHistory();
 }; // end handleReady
 
 function getCalculation() {
