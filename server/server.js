@@ -26,7 +26,7 @@ function calculator(calculation) {
     } else if (calculation.operator == '*') {
         result = Number(calculation.firstNumber) * Number(calculation.secondNumber)
     }
-}; // end calculator
+}; // end calculator`
 
 app.post('/calculation', function (req, res) {
     console.log('POST /calculation', req.body);
